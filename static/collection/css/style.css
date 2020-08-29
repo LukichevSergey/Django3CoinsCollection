@@ -1,0 +1,8 @@
+.coin_content {
+    display: flex;
+}
+
+.coin_photo {
+    width: 250px;
+    height: 2500px;
+}

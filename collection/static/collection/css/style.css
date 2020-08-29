@@ -1,0 +1,20 @@
+.coin_main {
+    display: flex;
+    flex-direction: column;
+}
+
+.coin_content {
+    display: flex;
+    margin-top: 50px;
+    min-width: 600px;
+    justify-content: space-around;
+}
+
+.coin_photo {
+    width: 250px;
+    height: 250px;
+}
+
+.coin_photo img {
+    width: 100%;
+}
