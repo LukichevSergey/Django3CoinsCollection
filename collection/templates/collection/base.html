@@ -1,0 +1,82 @@
+<!doctype html>
+{% load sidebar %}
+{% load static %}
+<html lang="ru">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'collection/css/style.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-5 d-flex justify-content-around">
+                <div class="logo">
+                    <a class="navbar-brand" href="{% url 'index' %}">Монеты.РУ</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="get">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Поиск" name="s"
+                               aria-label="Search">
+                        <button class="btn btn-outline btn-light my-2 my-sm-0" type="submit">Поиск</button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                {% show_group %}
+            </div>
+        </div>
+        {% block content %}
+
+        {% endblock %}
+    </div>
+    {% if page_obj.has_other_pages %}
+    <div class="pegination">
+        <div class="nav-links">
+
+            {% if page_obj.has_previous %}
+            <a class="page-numbers" href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left"
+                                                                                        aria-hidden="true"></i></a>
+            {% endif %}
+
+            {% for p in page_obj.paginator.page_range %}
+            {% if page_obj.number == p %}
+            <span class="page-numbers current">{{ p }}</span>
+            {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
+            <a class="page-numbers" href="?page={{ p }}">{{ p }}</a>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <a class="page-numbers" href="?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right"
+                                                                                    aria-hidden="true"></i></a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</body>
+</html>

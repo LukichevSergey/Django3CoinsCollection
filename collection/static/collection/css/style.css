@@ -18,3 +18,15 @@
 .coin_photo img {
     width: 100%;
 }
+
+.card {
+    min-height: 250px;
+}
+
+.row h1 {
+    max-width: 80%;
+}
+
+.pegination {
+    text-align:center;
+}

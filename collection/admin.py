@@ -7,7 +7,7 @@ class GroupAdmin(admin.ModelAdmin):
 
 class CoinAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
-    list_display = ('title', 'slug', 'group', 'year', 'denomination', 'diameter', 'edition', 'material', 'weight') #Поля для отображения в админке
+    list_display = ('title', 'slug', 'group', 'price', 'year', 'denomination', 'diameter', 'edition', 'material', 'weight') #Поля для отображения в админке
     list_display_links = ('title',)  #Поля - ссылки
     search_fields = ('title',)  #Поля для поиска
     list_filter = ('group','year', 'material') #По каким полям фильтровать

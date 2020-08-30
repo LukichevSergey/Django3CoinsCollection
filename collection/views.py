@@ -7,10 +7,11 @@ class CoinsView(ListView):
     model = Coin
     template_name = 'collection/index.html'
     context_object_name = 'coins'
+    paginate_by = 8
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CoinsView, self).get_context_data()
-        context['title'] = 'Все монеты'
+        context['title'] = 'Монеты.РУ'
         return context
 
 class PostByGroup(ListView):
@@ -23,7 +24,7 @@ class PostByGroup(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PostByGroup, self).get_context_data()
-        context['title'] = 'self.title'
+        context['title'] = Group.objects.get(slug=self.kwargs['slug'])
         return context
 
 class CoinDetailView(DetailView):
@@ -33,5 +34,17 @@ class CoinDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CoinDetailView, self).get_context_data()
-        context['title'] = 'self.title'
+        context['title'] = Coin.objects.get(slug=self.kwargs['slug'])
+        return context
+
+class Search(ListView):
+    template_name = 'collection/index.html'
+    context_object_name = 'coins'
+
+    def get_queryset(self):
+        return Coin.objects.filter(title__icontains=self.request.GET.get('s')) #Достаем данные из первичной модели по данным из вторичной модели
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['s'] = f"s={self.request.GET.get('s')}&"
         return context
